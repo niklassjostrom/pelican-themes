@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "=== Push to GitHub ==="
+git add --all .
+read -e -p "Changes made (optional): " commit_message
+git commit --allow-empty-message --no-edit --message "$commit_message";
+git push -u origin master

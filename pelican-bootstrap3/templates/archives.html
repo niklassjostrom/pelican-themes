@@ -10,15 +10,71 @@
 {% endblock %}
 
 {% block content %}
-    <section id="content">
-      <h1>{{ _('Archives for') }} {{ SITENAME }}</h1>
-        <div id="archives">
-            {% for article in dates %}
-                <p>
-                    <span class="categories-timestamp"><time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time></span>
-                    <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}{% if article.subtitle %} - {{ article.subtitle }}{% endif %}</a>
-                </p>
+    <section id="archive">
+        <h1>Archive by Year</h1>
+        <div class="panel-group" id="accordion">
+            {% for year, articles in dates|groupby( 'date.year' )|sort(reverse=True) %}  
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{year}}">{{ year }} <span class="badge pull-right">{{ articles|count }}</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-{{year}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+		        {% for article in articles %}
+                        <p><span class="categories-timestamp"><time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time></span> <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
             {% endfor %}
         </div>
     </section>
+
+    <section id="categories">
+        <h1>Archive by Category</h1>
+        <div class="panel-group" id="accordion">
+            {% for category, articles in categories %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{category.slug}}">{{ category }} <span class="badge pull-right">{{ articles|count }}</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-{{category.slug}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {% for article in articles %}
+                        <p><span class="categories-timestamp"><time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time></span> <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+    <section id="tags">
+        <h1>Archive by Tag</h1>
+        <div class="panel-group" id="accordion">
+            {%- for tag, articles in tags|sort %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{tag.slug}}">{{ tag }} <span class="badge pull-right">{{ articles|count }}</span></a>
+                    </h4>
+                </div>
+                <div id="collapse-{{tag.slug}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {% for article in articles %}
+                        <p><span class="categories-timestamp"><time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time></span> <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
 {% endblock %}
