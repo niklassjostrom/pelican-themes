@@ -28,7 +28,7 @@
     {% block canonical_rel %}{% endblock %}
 
     {% block meta %}
-        <meta name="author" content="{{ AUTHOR }}" />
+        <meta name="author" content="{{ AUTHOR }}">
     {% endblock %}
 
     {# Open Graph tags #}
@@ -36,16 +36,16 @@
     {% block opengraph %}
     <!-- Open Graph tags -->
         {% if OPEN_GRAPH_FB_APP_ID %}
-            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}">
         {% endif %}
-        <meta property="og:site_name" content="{{ SITENAME }}" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="{{ SITENAME }}"/>
-        <meta property="og:url" content="{{ SITEURL }}"/>
-        <meta property="og:description" content="{{ SITENAME }}"/>
+        <meta property="og:site_name" content="{{ SITENAME }}">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="{{ SITENAME }}">
+        <meta property="og:url" content="{{ SITEURL }}">
+        <meta property="og:description" content="{{ SITENAME }}">
         {% if OPEN_GRAPH_IMAGE %}
             <meta property="og:image"
-                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}">
         {% endif %}
     {% endblock %}
     {% endif %}
